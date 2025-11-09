@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views import index, TrainFromCSVView
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', index, name='index'),
+    path('api/train_csv/', TrainFromCSVView.as_view(), name='train-from-csv'),
 ]
