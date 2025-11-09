@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    padding: 50px;
+}
+
+.imagen {
+    margin-top: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
