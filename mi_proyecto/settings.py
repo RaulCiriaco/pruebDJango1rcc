@@ -3,10 +3,10 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-xxxx'  # genera uno propio
-DEBUG = True
+SECRET_KEY = 'django-insecure-xxxx'  # usa tu propia clave
+DEBUG = False  # ⚠️ Desactiva DEBUG en producción
 
-ALLOWED_HOSTS = ['*']  # en producción agrega tu dominio/render
+ALLOWED_HOSTS = ['*']  # Puedes poner ['tu-app.onrender.com'] si quieres más seguridad
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ necesario para Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,8 +56,16 @@ DATABASES = {
     }
 }
 
+# ---- STATIC FILES (para Render) ----
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'app' / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # para deploy
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Whitenoise: compresión y caché
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ---- MEDIA (por si usas imágenes subidas por usuarios) ----
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
